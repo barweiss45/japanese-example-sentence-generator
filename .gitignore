@@ -1,4 +1,5 @@
-# .python-version file
+# .python-version file/ output.html files
+*/output.html
 .python-version
 
 # Byte-compiled / optimized / DLL files
