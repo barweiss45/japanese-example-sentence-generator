@@ -1,0 +1,3 @@
+[submodule "notebooks/langchain-hub"]
+	path = notebooks/langchain-hub
+	url = https://github.com/barweiss45/langchain-hub.git
