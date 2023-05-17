@@ -1,0 +1,1 @@
+# nihongo-example-sentence-bot
