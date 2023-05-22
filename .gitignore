@@ -9,6 +9,7 @@ __pycache__/
 
 # ignore all notebooks that start with test_
 notebooks/test_*
+notebooks/
 
 # C extensions
 *.so
