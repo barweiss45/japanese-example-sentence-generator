@@ -4,6 +4,11 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from ai_api import query_to_llm
 import tests
+import logging
+from asyncio import sleep
+
+# Set up logging
+discord.utils.setup_logging(level=logging.INFO)
 
 load_dotenv('.env')
 
@@ -22,13 +27,19 @@ async def on_ready():
 @bot.command(name='ping')
 async def ping(ctx):
     await ctx.send('pong')
-    
-@bot.command(name='sentence')
-async def sentence(ctx, arg):
+
+async def get_sentence(arg):
     if tests.is_japanese(arg) == True:
-        llm_output = query_to_llm(arg)
-        await ctx.send(llm_output)
+        return query_to_llm(arg)
     else:
-        await ctx.send("There was an issue with your input. Use Japanese characters only.")
+        logging.error(f'A message failed for is_japanese test. {arg} was entered')
+        return("There was an issue with your input. Use Japanese characters only.")
+        
+@bot.command(name='sentence')
+async def sentence(ctx, arg): #
+    async with ctx.typing():
+        msg = await get_sentence(arg)
+        logging.debug(msg)
+    await ctx.send(msg)
 
 bot.run(TOKEN)
