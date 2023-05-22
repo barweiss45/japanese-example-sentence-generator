@@ -1,16 +1,13 @@
 import os
 import discord
-from langchain.llms import OpenAI
 from discord.ext import commands
-from forvo_api import get_pronounciation
 from dotenv import load_dotenv
+from ai_api import query_to_llm
+import tests
 
 load_dotenv('.env')
 
-TOKEN = os.getenv('discord_api_key')
-openai_api_key = os.getenv('openai_api_key')
-
-llm = OpenAI(model_name="text-davinci-003", openai_api_key=openai_api_key)
+TOKEN = os.environ['DISCORD_API_KEY']
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -23,13 +20,15 @@ async def on_ready():
     print(f'{bot.user} is active in {guild.id}')
     
 @bot.command(name='ping')
-async def on_message(ctx):
+async def ping(ctx):
     await ctx.send('pong')
     
-@bot.command(name='llm')
-async def on_message(ctx, arg):
-    llm_output = llm(arg)
-    print(f"{ctx.author}Sent: {ctx.message}\n\nLLM Sent: {llm_output}")
-    await ctx.send(llm_output)
+@bot.command(name='sentence')
+async def sentence(ctx, arg):
+    if tests.is_japanese(arg) == True:
+        llm_output = query_to_llm(arg)
+        await ctx.send(llm_output)
+    else:
+        await ctx.send("There was an issue with your input. Use Japanese characters only.")
 
 bot.run(TOKEN)
