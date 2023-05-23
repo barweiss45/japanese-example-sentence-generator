@@ -1,11 +1,12 @@
 import os
 import logging
 import discord
+import requests
 import tests
 from discord.ext import commands
 from dotenv import load_dotenv
 from ai_api import query_to_llm
-from bot_http_api_auth import get_token
+from bot_http_api_auth import get_token, BASE_URL
 from forvo_api import get_pronounciation
 
 # Set up logging
@@ -14,7 +15,10 @@ discord.utils.setup_logging(level=logging.DEBUG)
 load_dotenv()
 
 TOKEN = os.environ['DISCORD_BOT_TOKEN']
-
+BEARER_TOKEN = get_token()
+headers = {
+      'Authorization': f'Bearer {BEARER_TOKEN}',
+  }
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -31,11 +35,10 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send('pong')
 
-@bot.command(name='test')
-async def markdown(ctx):
-    response = "# Title here!"
-    print(response)
-    await ctx.send(response)
+@bot.command(name='channel')
+async def channel(ctx):
+    r = requests.get(f"{BASE_URL}/channel/id", headers=headers)
+    await ctx.send(r.json())
 
 async def get_sentence(arg):
     if tests.is_japanese(arg) == True:
