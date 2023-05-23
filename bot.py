@@ -1,10 +1,11 @@
 import os
+import logging
 import discord
+import tests
 from discord.ext import commands
 from dotenv import load_dotenv
 from ai_api import query_to_llm
-import tests
-import logging
+from bot_http_api_auth import get_token
 from forvo_api import get_pronounciation
 
 # Set up logging
