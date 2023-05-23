@@ -8,7 +8,7 @@ import logging
 from asyncio import sleep
 
 # Set up logging
-discord.utils.setup_logging(level=logging.INFO)
+discord.utils.setup_logging(level=logging.DEBUG)
 
 load_dotenv('.env')
 
@@ -32,7 +32,7 @@ async def get_sentence(arg):
     if tests.is_japanese(arg) == True:
         return query_to_llm(arg)
     else:
-        logging.error(f'A message failed for is_japanese test. {arg} was entered')
+        logging.error(f'A message failed for is_japanese test. {arg} was entered.')
         return("There was an issue with your input. Use Japanese characters only.")
         
 @bot.command(name='sentence')

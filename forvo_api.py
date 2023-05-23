@@ -7,6 +7,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 import argparse
 
 load_dotenv()
+
+# Load forvo api key
 forvo_api_key = os.environ['FORVO_API_KEY']
 
 def get_pronounciation(word_to_search):
