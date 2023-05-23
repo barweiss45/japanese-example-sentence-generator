@@ -5,18 +5,19 @@ from dotenv import load_dotenv
 from ai_api import query_to_llm
 import tests
 import logging
-from asyncio import sleep
+from forvo_api import get_pronounciation
 
 # Set up logging
 discord.utils.setup_logging(level=logging.DEBUG)
 
 load_dotenv('.env')
 
-TOKEN = os.environ['DISCORD_API_KEY']
+TOKEN = os.environ['DISCORD_BOT_TOKEN']
 
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(intents=intents, command_prefix='!')
+embed = discord.Embed()
 
 @bot.event    
 async def on_ready():
@@ -27,6 +28,12 @@ async def on_ready():
 @bot.command(name='ping')
 async def ping(ctx):
     await ctx.send('pong')
+
+@bot.command(name='test')
+async def markdown(ctx):
+    response = "# Title here!"
+    print(response)
+    await ctx.send(response)
 
 async def get_sentence(arg):
     if tests.is_japanese(arg) == True:
