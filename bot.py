@@ -11,7 +11,7 @@ from forvo_api import get_pronounciation
 # Set up logging
 discord.utils.setup_logging(level=logging.DEBUG)
 
-load_dotenv('.env')
+load_dotenv()
 
 TOKEN = os.environ['DISCORD_BOT_TOKEN']
 
@@ -19,7 +19,7 @@ TOKEN = os.environ['DISCORD_BOT_TOKEN']
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(intents=intents, command_prefix='!')
-embed = discord.Embed()
+# embed = discord.Embed()
 
 @bot.event    
 async def on_ready():
