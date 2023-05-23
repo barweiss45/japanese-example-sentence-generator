@@ -1,0 +1,8 @@
+
+# Forvo Results for "{{ word_to_search }}"
+
+|id|Hits|Word|User|Sex|+1 Votes|Preview|Link|
+|--|----|----|----|---|--------|-------|----|
+{% for index in items_list  %}
+|{{ index.id }}|{{ index.hits }}|{{ index.word }}||{{ index.username }}|{{ index.sex }}|{{ index.num_positive_votes }}|[Download]({{ index.pathmp3 }})|
+{% endfor %}
