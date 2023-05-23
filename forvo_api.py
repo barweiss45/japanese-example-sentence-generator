@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 
+import os
 from requests import get
-from dotenv import  get_key
+from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import argparse
+
+load_dotenv()
+forvo_api_key = os.environ['FORVO_API_KEY']
 
 def get_pronounciation(word_to_search):
     environment = Environment(
@@ -14,7 +18,6 @@ def get_pronounciation(word_to_search):
         trim_blocks=True
         )
     template = environment.get_template('output.j2')
-    forvo_api_key = get_key('../.env', 'forvo_api_key')
 
     country = 'Japan'
 
