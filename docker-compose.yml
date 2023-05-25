@@ -1,0 +1,16 @@
+
+version: '3'
+services:
+  nihongo-bot:
+    env_file:
+      - .env
+    container_name: nihongo-bot
+    build:
+      context: "."
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_USER: ${OPENAI_USER}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
+      DISCORD_SECRET: ${DISCORD_SECRET}
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+      FORVO_API_KEY: ${FORVO_API_KEY}
