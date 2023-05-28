@@ -5,6 +5,7 @@ from requests import get
 from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import argparse
+import logging
 
 load_dotenv()
 
@@ -33,16 +34,11 @@ def get_pronounciation(word_to_search):
 
     response = get(URL, headers=HEADERS)
 
-    # print(f"HTTP Response Code: {response.status_code} {response.reason}\n")
+    logging.DEBUG(f"Forvo HTTP Response Code: {response.status_code} {response.reason}\n")
     output = response.json()['items']
 
     items_list = [index for index in output if country == index['country']]
     content = template.render({"word_to_search": word_to_search, "items_list":items_list})
-    
-    #return content
-    # creat json file for tshoot purposes.
-    # with open(f'forvo_{word_to_search}.json', 'w', encoding='UTF-8') as file:
-    #     print(json.dumps(items_list, indent=4), file=file)
 
     with open(f'./forvo_output/output.html', 'w', encoding='UTF-8') as file:
         print(content, file=file)
