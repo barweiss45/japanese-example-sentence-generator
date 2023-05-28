@@ -19,7 +19,7 @@ def get_pronounciation(word_to_search):
         lstrip_blocks=True,
         trim_blocks=True
         )
-    template = environment.get_template('forvo_output_md.j2')
+    template = environment.get_template('output.j2')
 
     country = 'Japan'
 
@@ -39,13 +39,13 @@ def get_pronounciation(word_to_search):
     items_list = [index for index in output if country == index['country']]
     content = template.render({"word_to_search": word_to_search, "items_list":items_list})
     
-    return content
+    #return content
     # creat json file for tshoot purposes.
     # with open(f'forvo_{word_to_search}.json', 'w', encoding='UTF-8') as file:
     #     print(json.dumps(items_list, indent=4), file=file)
 
-    # with open(f'output.html', 'w', encoding='UTF-8') as file:
-    #     print(content, file=file)
+    with open(f'forvo_output/output.html', 'w', encoding='UTF-8') as file:
+        print(content, file=file)
 
 def main(args):
     get_pronounciation(args.word_to_search)
