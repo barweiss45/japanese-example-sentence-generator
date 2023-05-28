@@ -34,7 +34,7 @@ def get_pronounciation(word_to_search):
 
     response = get(URL, headers=HEADERS)
 
-    logging.DEBUG(f"Forvo HTTP Response Code: {response.status_code} {response.reason}\n")
+    logging.debug(f"Forvo HTTP Response Code: {response.status_code} {response.reason}\n")
     output = response.json()['items']
 
     items_list = [index for index in output if country == index['country']]
