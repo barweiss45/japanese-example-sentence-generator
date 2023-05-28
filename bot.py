@@ -43,6 +43,7 @@ async def channel(ctx):
 async def get_sentence(arg):
     if tests.is_japanese(arg) == True:
         content = get_pronounciation(arg)
+        logging.debug(content)
         with open(f'./forvo_output/output.html', 'w', encoding='UTF-8') as file:
             print(content, file=file)
             logging.debug('Forvo - .html file has been created.')
