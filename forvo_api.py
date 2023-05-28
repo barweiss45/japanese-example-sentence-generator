@@ -44,7 +44,7 @@ def get_pronounciation(word_to_search):
     # with open(f'forvo_{word_to_search}.json', 'w', encoding='UTF-8') as file:
     #     print(json.dumps(items_list, indent=4), file=file)
 
-    with open(f'forvo_output/output.html', 'w', encoding='UTF-8') as file:
+    with open(f'./forvo_output/output.html', 'w', encoding='UTF-8') as file:
         print(content, file=file)
 
 def main(args):
