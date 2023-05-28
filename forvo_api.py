@@ -42,6 +42,7 @@ def get_pronounciation(word_to_search):
 
     with open(f'./forvo_output/output.html', 'w', encoding='UTF-8') as file:
         print(content, file=file)
+        logging.debug('Forvo - .html file has been created.')
 
 def main(args):
     get_pronounciation(args.word_to_search)

@@ -42,7 +42,10 @@ async def channel(ctx):
 
 async def get_sentence(arg):
     if tests.is_japanese(arg) == True:
-        get_pronounciation(arg)
+        content = get_pronounciation(arg)
+        with open(f'./forvo_output/output.html', 'w', encoding='UTF-8') as file:
+            print(content, file=file)
+            logging.debug('Forvo - .html file has been created.')
         return query_to_llm(arg)
     else:
         logging.error(f'A message failed for is_japanese test. {arg} was entered.')
