@@ -42,6 +42,7 @@ async def channel(ctx):
 
 async def get_sentence(arg):
     if tests.is_japanese(arg) == True:
+        get_pronounciation(arg)
         return query_to_llm(arg)
     else:
         logging.error(f'A message failed for is_japanese test. {arg} was entered.')
