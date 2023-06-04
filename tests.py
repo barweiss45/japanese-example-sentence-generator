@@ -1,12 +1,13 @@
 import re
 
 
-def is_japanese(string):
+def is_japanese(look_up_word: str) -> str|Exception:
     # Unicode range for Hiragana, Katakana and Kanji (HKK)
     hkk = r'[\u3040-\u30FF\u4E00-\u9FFF]'
-    
-    # Match the entire string with the above range
-    return re.match(f'^{hkk}+$', string) is not None
+    if re.match(f'^{hkk}+$', look_up_word) is not None:
+        return "OK"
+    else:
+         raise Exception("There was an issue with your input. Use Japanese characters only.")
 
 def main():
     assert is_japanese('こんにちは') == True  # True

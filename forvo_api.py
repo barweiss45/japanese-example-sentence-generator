@@ -39,10 +39,9 @@ def get_pronounciation(word_to_search):
 
     items_list = [index for index in output if country == index['country']]
     content = template.render({"word_to_search": word_to_search, "items_list":items_list})
+    
+    return content
 
-    with open(f'./forvo_output/output.html', 'w', encoding='UTF-8') as file:
-        print(content, file=file)
-        logging.debug('Forvo - .html file has been created.')
 
 def main(args):
     get_pronounciation(args.word_to_search)

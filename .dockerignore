@@ -1,3 +1,5 @@
+# No Archive
+archived/*
 # ignore the queen mother of all no-no's
 .env
 # Ignore VSCODE Directory
