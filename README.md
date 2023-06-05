@@ -13,4 +13,4 @@ docker compose build
 docker compose up -d
 ```
 
-Then open your browser to [http://localhost:8501] and enjoy.
+Then open your browser to [http://localhost:8501](http://localhost:8501) and enjoy.
