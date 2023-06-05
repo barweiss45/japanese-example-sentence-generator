@@ -15,10 +15,6 @@ from streamlit.logger import get_logger
 
 logger = get_logger(__name__)
 
-load_dotenv()
-
-# Load API Key 
-openai_api_key = os.environ['OPENAI_API_KEY']
 #promptlayer_api_key = os.environ["PROMPTLAYER_API_KEY"]
 model_name = "gpt-4-0314"
 chat = ChatOpenAI(model_name=model_name, openai_api_key=openai_api_key)
@@ -86,9 +82,13 @@ def query_to_chat(word, quantity, temp, openai_api_key):
         logger.warning(e)
         return e
 
-def main():
+def main(openai_api_key):
     word = input('Welcome to the Example sentence creator\nPlease enter a word that you want for an example sentence: ')
     return print(query_to_chat(word,quantity=2,temp=0.7,openai_api_key=openai_api_key))
 
 if __name__ == "__main__":
-    main()
+    # Load API Key 
+    load_dotenv()
+    # OpenAI API need to run queries.
+    openai_api_key = os.environ['OPENAI_API_KEY']
+    main(openai_api_key)
