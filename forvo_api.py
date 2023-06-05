@@ -5,7 +5,9 @@ from requests import get
 from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import argparse
-import logging
+from streamlit.logger import get_logger
+
+logger = get_logger(__name__)
 
 load_dotenv()
 
@@ -13,6 +15,8 @@ load_dotenv()
 forvo_api_key = os.environ['FORVO_API_KEY']
 
 def get_pronounciation(word_to_search):
+    
+    # Retrieve Jinja2 template to build HTML
     environment = Environment(
         loader=FileSystemLoader('templates'),
         autoescape=select_autoescape(enabled_extensions='html',
@@ -23,25 +27,27 @@ def get_pronounciation(word_to_search):
     template = environment.get_template('output.j2')
 
     country = 'Japan'
-
+    
+    # Values for Forvo API. See https://api.forvo.com/
     FORMAT = 'json'
     LANGUAGE = 'ja'
     ACTION = 'word-pronunciations'
     ORDER = 'rate-desc'  # pronunciations order by rate, high rated first
     HEADERS = {'Accept':'application/json'}
 
-    URL = f'https://apifree.forvo.com/key/{forvo_api_key}/format/{FORMAT}/word/{word_to_search}/language/{LANGUAGE}/action/{ACTION}/order{ORDER}'
+    try:
+        URL = f'https://apifree.forvo.com/key/{forvo_api_key}/format/{FORMAT}/word/{word_to_search}/language/{LANGUAGE}/action/{ACTION}/order{ORDER}'
+        response = get(URL, headers=HEADERS)
+        logger.debug(f"Forvo HTTP Response Code: {response.status_code} {response.reason}\n")
+    except Exception as e:
+        logger.warning(e)
+        return e
 
-    response = get(URL, headers=HEADERS)
-
-    logging.debug(f"Forvo HTTP Response Code: {response.status_code} {response.reason}\n")
     output = response.json()['items']
-
     items_list = [index for index in output if country == index['country']]
     content = template.render({"word_to_search": word_to_search, "items_list":items_list})
-    
+    logger.debug(f"forvo_api.py content: {content}")    
     return content
-
 
 def main(args):
     get_pronounciation(args.word_to_search)
