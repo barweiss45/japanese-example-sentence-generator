@@ -69,4 +69,3 @@ if submitted:
     responsebox.markdown(query)
     forvodivider.divider()
     forvobox.write(pronounciation, unsafe_allow_html=True)
-

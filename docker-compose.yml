@@ -1,18 +1,15 @@
 
 version: '3'
 services:
-  nihongo-bot:
+  jp-sentence-generator:
     env_file:
       - .env
-    container_name: nihongo-bot
+    container_name: jp-sentence-generator
     build:
       context: "."
+    ports:
+     - "8501"
     environment:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       OPENAI_USER: ${OPENAI_USER}
-      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
-      DISCORD_SECRET: ${DISCORD_SECRET}
-      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
       FORVO_API_KEY: ${FORVO_API_KEY}
-    volumes:
-      - ./forvo_output/:/app/forvo_output/:rw
