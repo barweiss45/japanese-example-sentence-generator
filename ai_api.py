@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 import os
 from textwrap import dedent
 from dotenv import load_dotenv
@@ -73,7 +75,7 @@ def markdown_output_format(result):
     content = template.render({"content": content, "model_name": model_name})
     return content
 
-def query_to_chat(word, quantity, temp, openai_api_key):
+def query_to_chat(word, quantity=2, temp=0.7, openai_api_key=openai_api_key):
     chat.temperature = temp
     chat.openai_api_key = openai_api_key
     chat_prompt = few_shot_chat_prompt().format_prompt(look_up_word=word, qty=quantity)
@@ -86,9 +88,37 @@ def query_to_chat(word, quantity, temp, openai_api_key):
         logger.warning(e)
         return e
 
-def main():
-    word = input('Welcome to the Example sentence creator\nPlease enter a word that you want for an example sentence: ')
-    return print(query_to_chat(word,quantity=2,temp=0.7,openai_api_key=openai_api_key))
+def create_parser() -> object:
+    """Parser built for stand a lone testing of the ai_api.py Module"""
+    import argparse
+    parser = argparse.ArgumentParser(
+    prog="ai_api.py",
+    description="Japanese Example Sentence Creator - AI API Mdodule",
+    epilog="A simiple Example creator by Barry Weiss. MIT License 2023",
+    )
+    parser.add_argument("--word", "-w", metavar="WORD", default=None, help="Provide a word or phrase in quotes to create an example sentence.")
+    parser.add_argument("--quantity", "-q", metavar="NUM", type=int, default=2, help="Number of example sentences to return. Default is 2.")
+    parser.add_argument("--temp","-t", metavar="FLOAT", type=float, default=0.7, help="Set the LLM Temperature. Default is 0.7.")
+    parser.add_argument(
+                        "--openai-api-key", 
+                        metavar="API_KEY", 
+                        type=str, 
+                        default=openai_api_key, 
+                        help="OpenAI API key. Default will use the .env if not supplied."
+                        )
+    return parser
+
+def main(args):
+    if args.word is None:
+        word = input('Welcome to the Example sentence creator\nPlease enter a word that you want for an example sentence: ')
+        args.word = word
+    return print(query_to_chat(
+            args.word,
+            quantity=args.quantity,
+            temp=args.temp,
+            openai_api_key=args.openai_api_key)
+            )
 
 if __name__ == "__main__":
-    main()
+    args = create_parser().parse_args()
+    main(args)
