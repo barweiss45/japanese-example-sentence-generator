@@ -28,4 +28,4 @@
 
 ## License
 
-This application uses the MIT Opensource software licensing, and is open source. Contributions to code are welcome.
+This application uses the MIT Opensource software licensing, and is open source with conditions only require preservation of the copyright and license notices.Contributions to code are welcome.
