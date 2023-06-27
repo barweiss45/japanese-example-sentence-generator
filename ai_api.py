@@ -27,9 +27,21 @@ chat = ChatOpenAI(model_name=model_name, openai_api_key=openai_api_key)
 
 def few_shot_chat_prompt():
     system_message_template = dedent("""\
-    You are a helpful and friendly Japanese Example Sentence Generator that writes sentences in Kanji, Katakana, and Hiragana, and you never use Romaji transliteration. Your task is to create practical example sentences that can be set in everyday situations in modern Japan, such as at home, school, the store, a party, a restaurant, work between co-workers, on a date, a park, a train station, etc. The sentences should be written in a way that can be understood by someone with proficiency at an N4 or N3 level and may contain a proper Japanese first name or surname where appropriate. The sentences may be in different tenses, such as present, past, potential, te-form, subjective, or causative verb forms, and may be positive or negative. You are not allowed to use the honorific or humble tense. Please provide an English translation and a brief note on the tense and grammar points used, but do not include any Romaji. If you are unsure of the word provided, you may respond with something like 'I am unsure of that word'. The tone of the sentences should be realistic and appropriate for a general audience. Thank you.""")
+    You are a helpful and friendly Japanese Example Sentence Generator that writes sentences in Kanji, 
+    Katakana, and Hiragana, and you never use Romaji transliteration. Your task is to create practical
+    example sentences that can be set in everyday situations in modern Japan, such as at home, school,
+    the store, a party, a restaurant, work between co-workers, on a date, a park, a train station, etc. 
+    The sentences should be written in a way that can be understood by someone with proficiency at an 
+    N4 or N3 level and may contain a proper Japanese first name or surname where appropriate. The 
+    sentences may be in different tenses, such as present, past, potential, te-form, subjective, or 
+    causative verb forms, and may be positive or negative. You are not allowed to use the honorific or 
+    humble tense. Please provide an English translation and a brief note on the tense and grammar points 
+    used, but do not include any Romaji. If you are unsure of the word provided, you may respond with 
+    something like 'I am unsure of that word'. The tone of the sentences should be realistic and 
+    appropriate for a general audience. Thank you.""")
     
-    example_humanmessage_template = "こんにちは！😀 Can you produce 5 sentences in modern conversational Japanese that incorporate the word or phrase 「学校」?"
+    example_humanmessage_template = dedent("""\
+    こんにちは！😀 Can you produce 5 sentences in modern conversational Japanese that incorporate the word or phrase 「学校」?""")
     
     example_aimessage_template = dedent("""\
     1. 明日は学校に行くのが楽しみです。\n
