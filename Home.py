@@ -20,7 +20,7 @@ forvo_api_key = os.environ['FORVO_API_KEY']
 
 # <-- DO NOT PLACE ANY STREAMLIT APPS BEFORE THIS LINE -->
 
-st.set_page_config(page_title="日本語　例文 - Japanese Example Generator",
+st.set_page_config(page_title="日本語 例文 - Japanese Example Generator",
                    page_icon="🎌",
                    layout="wide")
 
@@ -31,16 +31,22 @@ responsebox = st.empty()
 forvodivider = st.container()
 forvobox = st.empty()
 
-headerbox.title("日本語　例文 - Japanese Example Sentence Generator")
-headerbox.header("ようこそ　- Welcome to the Japanese Example Sentence Generator")
+headerbox.title("日本語の例文 - Japanese Example Sentence Generator")
+headerbox.header("ようこそ - Welcome to the Japanese Example Sentence Generator")
 headerbox.write(dedent("""\
-    Directions: Lorem ipsum dolor sit amet, ea cibo novum debitis per. Eam munere ancillae iracundia at. Quodsi fabulas duo an. 
-    Eu cum noluisse periculis erroribus, pro no essent maiorum, an appetere petentium imperdiet mei. Probo omittantur appellantur ea sit, 
-    mea iusto ceteros delicata an, ut vulputate repudiandae necessitatibus nec."""))
+Welcome to your Japanese Example Sentence Generator. This app is designed to assist you in crafting sentences
+that fit within various everyday situations set in modern Japan:\n\n
+
+1. Input your desired word or phrase in Kanji(漢字), Katakana(カタカナ), or Hiragana(ひらがな).\n
+2. Choose to generate up to five sentences.\n
+3. Adjust the temperature slider (scale: 0.1 - 1.0) to control creativity. Lower values (0.1) result in less creativity, and higher values (1.0) result in more.\n
+4. Note that the generated sentences may contain inaccuracies in grammar, word choice, and etc. Remember this is AI generated so be sure to check the sentences before using.\n\n
+\n\n
+Enjoy!"""))
 
 with querybox:
     with st.form('Sentence Form', clear_on_submit=True):
-        st.subheader(":red[Please enter the word or phrase for the desired example sentence:]")
+        st.subheader(":red[Please enter the word or phrase for the desired example sentence:]\n例文のための単語やフレーズを入力してください。")
         look_up_word = st.text_input(":red[Word or Phrase]")
         qty = st.selectbox(":red[Return # of examples]", options=list(range(1,6)), index=1)
         temperature = st.slider(":red[LLM Temperature (How deterministic or creative)]",0.0,1.0,.70,.10)
