@@ -22,7 +22,7 @@ load_dotenv()
 # Load API Key 
 openai_api_key = os.environ['OPENAI_API_KEY']
 #promptlayer_api_key = os.environ["PROMPTLAYER_API_KEY"]
-model_name = "gpt-4-0314"
+model_name = "gpt-4-0613"
 chat = ChatOpenAI(model_name=model_name, openai_api_key=openai_api_key)
 
 def few_shot_chat_prompt():
