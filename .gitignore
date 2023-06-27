@@ -1,5 +1,6 @@
 # Ignore VSCODE Directory
 .vscode/
+archived
 
 # .python-version file/ output.html files
 */output.html
