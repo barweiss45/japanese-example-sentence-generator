@@ -5,6 +5,7 @@ services:
     env_file:
       - .env
     container_name: jp-sentence-generator
+    restart: always
     build:
       context: "."
     ports:
