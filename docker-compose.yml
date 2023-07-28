@@ -11,7 +11,6 @@ services:
       - "8501:8501"
     environment:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
-      OPENAI_USER: ${OPENAI_USER}
       FORVO_API_KEY: ${FORVO_API_KEY}
     networks:
       - all-plugins-nginx-proxy_app_network
